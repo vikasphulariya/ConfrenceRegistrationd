@@ -35,34 +35,41 @@ export default function Form() {
       country: value.label,
     });
   };
+
   useEffect(() => {
     let temp = 0;
     let extra = 0;
     if (formData.areYouA === "Delegate") {
-      temp = 3000;
+      {
+        temp = formData.country === "India" ? 3000 : 70;
+      }
     } else {
       if (formData.memberType === "Student") {
         console.log("mem", formData.memberType);
-        temp = 7500;
+
+        temp = formData.country === "India" ? 7500 : 100;
       }
       if (formData.memberType === "Member/Reviewer") {
         console.log("mem", formData.memberType);
-        temp = 7500;
+        temp = formData.country === "India" ? 7500 : 100;
       }
       if (formData.memberType === "Research Scholar") {
         console.log("mem", formData.memberType);
-        temp = 7500;
+        temp = formData.country === "India" ? 7500 : 100;
       }
       if (formData.memberType === "Academician") {
         console.log("mem", formData.memberType);
-        temp = 8000;
+        temp = formData.country === "India" ? 8000 : 120;
       }
       if (formData.memberType === "Industry") {
         console.log("mem", formData.memberType);
-        temp = 8000;
+        temp = formData.country === "India" ? 8000 : 120;
       }
       if (formData.totalPaperPages > 8) {
-        extra = (formData.totalPaperPages - 8) * 800;
+        extra =
+          formData.country === "India"
+            ? (formData.totalPaperPages - 8) * 800
+            : (formData.totalPaperPages - 8) * 9;
       }
     }
     setAmountPaid(temp + extra);
@@ -70,7 +77,12 @@ export default function Form() {
       ...formData,
       amountPaid: temp + extra,
     });
-  }, [formData.areYouA, formData.memberType, formData.totalPaperPages]);
+  }, [
+    formData.areYouA,
+    formData.memberType,
+    formData.totalPaperPages,
+    formData.country,
+  ]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -124,7 +136,8 @@ export default function Form() {
           <div className="flex flex-row gap-3">
             <div>
               <label>
-                Email<text className="text-red-700 font-medium font-bold">*</text>
+                Email
+                <text className="text-red-700 font-medium font-bold">*</text>
                 <br />
                 <input
                   style={{
@@ -144,7 +157,8 @@ export default function Form() {
 
             <div>
               <label>
-                Phone<text className="text-red-700 font-medium font-bold">*</text>
+                Phone
+                <text className="text-red-700 font-medium font-bold">*</text>
                 <br />
                 <input
                   style={{
@@ -164,7 +178,8 @@ export default function Form() {
           </div>
           <div>
             <label>
-              Organisation<text className="text-red-700 font-medium font-bold">*</text>
+              Organisation
+              <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
                 style={{
@@ -183,7 +198,8 @@ export default function Form() {
           </div>
           <div>
             <label>
-              Qualification<text className="text-red-700 font-medium font-bold">*</text>
+              Qualification
+              <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
                 style={{
@@ -202,7 +218,8 @@ export default function Form() {
           </div>
           <div>
             <label>
-              Address<text className="text-red-700 font-medium font-bold">*</text>
+              Address
+              <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
                 style={{
@@ -263,7 +280,8 @@ export default function Form() {
           </div>
           <div>
             <label>
-              Country<text className="text-red-700 font-medium font-bold">*</text>
+              Country
+              <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <Select
                 placeholder="Select Country"
@@ -278,7 +296,8 @@ export default function Form() {
           </div>
           <div>
             <label>
-              Are you a<text className="text-red-700 font-medium font-bold">*</text>
+              Are you a
+              <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
                 style={{
@@ -508,7 +527,8 @@ export default function Form() {
 
           <div>
             <label>
-              Amount Paid<text className="text-red-700 font-medium font-bold">*</text>
+              Amount Paid {formData.country==="India"?`₹`:`$`}
+              <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
                 style={{
@@ -516,7 +536,7 @@ export default function Form() {
                   paddingHorizontal: 10,
                   marginBottom: 5,
                 }}
-                type="number"
+                // type="number"
                 name="amountPaid"
                 value={amountPaid}
                 // onChange={}
