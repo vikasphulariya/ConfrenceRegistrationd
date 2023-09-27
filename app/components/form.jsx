@@ -100,38 +100,39 @@ export default function Form() {
   };
   return (
     <>
-      <div className="justify-center container">
+      <div className="justify-center  container pr-2 mr-2">
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit}>
           <div>
             Name<text className="text-red-700 font-medium font-bold">*</text>
-            <br />
-            <input
-              style={{
-                borderRadius: 10,
-                paddingHorizontal: 10,
-                marginRight: 10,
-              }}
-              type="text"
-              name="firstName"
-              placeholder="First"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-            <input
-              style={{
-                borderRadius: 10,
-                paddingHorizontal: 10,
-                marginBottom: 5,
-              }}
-              type="text"
-              placeholder="Last"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-row gap-3">
+              <input
+                style={{
+                  borderRadius: 10,
+                  paddingHorizontal: 10,
+                  marginRight: 10,
+                }}
+                type="text"
+                name="firstName"
+                placeholder="First"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                style={{
+                  borderRadius: 10,
+                  paddingHorizontal: 10,
+                  marginBottom: 5,
+                }}
+                type="text"
+                placeholder="Last"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="flex flex-row gap-3">
             <div>
@@ -216,66 +217,71 @@ export default function Form() {
               />
             </label>
           </div>
-          <div>
+          <div className="pr-10">
             <label>
               Address
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
-              <input
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                  marginRight: 5,
-                }}
-                type="text"
-                name="addressLine1"
-                placeholder="Address "
-                value={formData.addressLine1}
-                onChange={handleChange}
-                required
-              />
-              <input
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                }}
-                type="text"
-                name="city"
-                placeholder="City"
-                value={formData.city}
-                onChange={handleChange}
-                required
-              />
-              <br />
-              <input
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                  marginRight: 5,
-                }}
-                type="text"
-                name="formData"
-                placeholder="State / Province / Region"
-                value={formData.formData}
-                onChange={handleChange}
-                required
-              />
-              <input
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                }}
-                type="number"
-                name="postalCode"
-                placeholder="Postal Code"
-                value={formData.postalCode}
-                onChange={handleChange}
-                required
-              />
+              <div className="flex flex-row gap-3 mr-10">
+                <input
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 10,
+                    marginBottom: 5,
+                    marginRight: 5,
+                  }}
+                  type="text"
+                  name="addressLine1"
+                  placeholder="Address "
+                  value={formData.addressLine1}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 10,
+                    marginBottom: 5,
+                    // marginRight:10
+                  }}
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {/* <br /> */}
+              <div className="flex flex-row gap-3">
+                <input
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 10,
+                    marginBottom: 5,
+                    marginRight: 5,
+                  }}
+                  type="text"
+                  name="formData"
+                  placeholder="State / Province / Region"
+                  value={formData.formData}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 10,
+                    marginBottom: 5,
+                  }}
+                  type="number"
+                  name="postalCode"
+                  placeholder="Postal Code"
+                  value={formData.postalCode}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </label>
           </div>
           <div>
@@ -527,7 +533,7 @@ export default function Form() {
 
           <div>
             <label>
-              Amount Paid {formData.country==="India"?`₹`:`$`}
+              Amount Paid {formData.country === "India" ? `₹` : `$`}
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
