@@ -1,13 +1,13 @@
 export default function Overview(params) {
   return (
     <>
-      <div className=" mb-20 flex-1">
+      <div className=" mb-20 container justify-center">
         <h1 className="text-4xl font-semibold self-center text-center  ">
           Registration 
         </h1>
 
         <div className="flex justify-center mt-10">
-          <div>
+          <div className="container ">
             <table 
               style={{ borderWidth: 1.5, borderRadius: 10, }}
               className="border border-collapse  border-black rounded-md"

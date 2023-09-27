@@ -100,7 +100,7 @@ export default function Form() {
   };
   return (
     <>
-      <div className="flex justify-center">
+      <div className="justify-center container">
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit}>
           <div>
