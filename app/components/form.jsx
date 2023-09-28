@@ -1,6 +1,7 @@
 "use client"; // This is a client component 👈🏽
 //svs
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+// import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import { useState, useEffect, useMemo } from "react";
 import countryList from "react-select-country-list";
 import Select from "react-select";
@@ -23,6 +24,7 @@ export default function Form() {
     paperTitle: "",
     paperAuthors: "",
     totalPaperPages: 0,
+    memberType: "",
   });
 
   const [value, setValue] = useState("India");
@@ -97,6 +99,45 @@ export default function Form() {
     e.preventDefault();
     // Handle form submission here, e.g., send data to server or perform validation
     console.log(formData);
+    let data = JSON.stringify({
+      First: formData.firstName,
+      Last: formData.lastName,
+      email: formData.email,
+      Phone: formData.phone,
+      organization: formData.organization,
+      qualification: formData.qualification,
+      Address: formData.addressLine1,
+      City: formData.city,
+      State:formData.state,
+      Pin: formData.postalCode,
+      country: formData.country,
+      Catagory: formData.areYouA,
+      subCatgory: formData.areYouA === "Author" ? formData.memberType : "NA",
+      PaperId: formData.areYouA === "Author" ? formData.paperId : "NA",
+      PaperTitle: formData.areYouA === "Author" ? formData.paperTitle : "NA",
+      PaperAuthor: formData.areYouA === "Author" ? formData.paperAuthors : "NA",
+      pageNo: formData.areYouA === "Author" ? formData.totalPaperPages : "NA",
+      Total: formData.amountPaid,
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://testingapps.pythonanywhere.com/api/insert/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>
@@ -262,9 +303,9 @@ export default function Form() {
                     marginRight: 5,
                   }}
                   type="text"
-                  name="formData"
+                  name="state"
                   placeholder="State / Province / Region"
-                  value={formData.formData}
+                  value={formData.state}
                   onChange={handleChange}
                   required
                 />

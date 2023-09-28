@@ -11,7 +11,7 @@ export default function Home(params) {
       {/* <BeforeSubmission /> */}
       <Form />
       <BankAccountDetails
-        accountHolder="Pending"
+        accountHolder="Novel Research Found"
         accountNumber="00158-58000-08501"
         ifscCode="YESB0000015"
       />
