@@ -196,17 +196,19 @@ export default function Form() {
   };
   return (
     <>
-      <div className="flex justify-center  container pr-2 mr-2">
+      <div className=" flex justify-center container mx-auto pl-20 md:pl-0 py-8  rounded-lg">
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit}>
-          <div>
-            Name<text className="text-red-700 font-medium font-bold">*</text>
-            <div className="flex flex-row gap-3">
-              <input
+          <div className="name-row w-full ">
+            <label className="font-bold text-2xl pb-3">Name <span className="text-red-700">*</span></label>
+            
+            
+            <div className="flex justfy-center flex-col md:flex-row gap-5 md:gap-10 w-full pb-4  ">
+              <input className="w-80 h-10"
                 style={{
                   borderRadius: 10,
                   paddingHorizontal: 10,
-                  marginRight: 10,
+
                 }}
                 type="text"
                 name="firstName"
@@ -216,6 +218,7 @@ export default function Form() {
                 required
               />
               <input
+                className=" w-80 h-10 "
                 style={{
                   borderRadius: 10,
                   paddingHorizontal: 10,
@@ -230,13 +233,15 @@ export default function Form() {
               />
             </div>
           </div>
-          <div className="flex flex-row gap-3">
-            <div>
-              <label>
+
+          <div className=" w-full flex gap-10 flex-col md:flex-row pb-4">
+            <div className="w-full">
+              <label className="font-bold text-2xl mb-3  ">
                 Email
-                <text className="text-red-700 font-medium font-bold">*</text>
+                <text className="text-red-700 font-medium mb-">*</text>
                 <br />
                 <input
+                className="w-80 h-10 font-medium pt-3"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -251,13 +256,15 @@ export default function Form() {
                 />
               </label>
             </div>
-
-            <div>
-              <label>
+            
+            
+            <div className="w-full">
+              <label className="font-bold text-2xl">
                 Phone
-                <text className="text-red-700 font-medium font-bold">*</text>
+                <text className="text-red-700 font-medium">*</text>
                 <br />
                 <input
+                  className="w-80 h-10 font-medium"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -273,12 +280,15 @@ export default function Form() {
               </label>
             </div>
           </div>
-          <div>
-            <label>
+          
+          <div className="flex flex-col md:flex-row gap-10">
+          <div className="w-full pb-4">
+            <label className="font-bold text-2xl">
               Organisation
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
+              className="w-80 h-10 font-medium"
                 style={{
                   borderRadius: 10,
                   paddingHorizontal: 10,
@@ -293,12 +303,15 @@ export default function Form() {
               />
             </label>
           </div>
-          <div>
-            <label>
+          
+
+          <div className="w-full pb-4">
+            <label className="font-bold text-2xl">
               Qualification
-              <text className="text-red-700 font-medium font-bold">*</text>
+              <text className="text-red-700 font-medium">*</text>
               <br />
               <input
+              className="font-medium w-80 h-10"
                 style={{
                   borderRadius: 10,
                   paddingHorizontal: 10,
@@ -313,13 +326,16 @@ export default function Form() {
               />
             </label>
           </div>
-          <div className="pr-10">
-            <label>
+          </div>
+
+          <div className="pr-10 pb-4 w-full ">
+            <label className="text-2xl font-bold ">
               Address
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
-              <div className="flex flex-row gap-3 mr-10">
+              <div className="flex flex-col mr-10">
                 <input
+                className="font-medium w-80 h-10 "
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -334,6 +350,7 @@ export default function Form() {
                   required
                 />
                 <input
+                className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -349,8 +366,9 @@ export default function Form() {
                 />
               </div>
               {/* <br /> */}
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col">
                 <input
+                className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -365,6 +383,7 @@ export default function Form() {
                   required
                 />
                 <input
+                className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -380,24 +399,25 @@ export default function Form() {
               </div>
             </label>
           </div>
-          <div>
-            <label>
+          <div className="pb-6">
+            <label className="font-bold text-2xl">
               Country
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <Select
+
                 placeholder="Select Country"
                 name="country"
                 options={options}
                 defaultValue={value}
                 onChange={changeHandler}
                 required
-                className="w-max"
+                className="w-80 h-8 text-sm font-medium rounded-lg "
               />
             </label>
           </div>
-          <div>
-            <label>
+          <div className="pb-4">
+            <label className="font-bold text-2xl">
               Are you a
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
@@ -415,7 +435,8 @@ export default function Form() {
                 onChange={handleChange}
                 required
               />
-              Author
+
+              <span className="text-lg font-medium">Author</span>
               <input
                 style={{
                   borderRadius: 10,
@@ -431,7 +452,7 @@ export default function Form() {
                 onChange={handleChange}
                 required
               />
-              Delegate
+              <span className="text-lg font-medium">Delegate</span>
             </label>
           </div>
           {formData.areYouA === "Author" ? (
@@ -440,7 +461,7 @@ export default function Form() {
                 <label>Author Category:</label>
                 <div>
                   {/* <div> */}
-                  <label>
+                  <label className="p-3 text-lg">
                     <input
                       style={{
                         borderRadius: 10,
@@ -459,7 +480,7 @@ export default function Form() {
                     Student
                   </label>
 
-                  <label>
+                  <labe className="p-3 text-lg">
                     <input
                       style={{
                         borderRadius: 10,
@@ -476,11 +497,11 @@ export default function Form() {
                       required={formData.areYouA === "Author" ? true : false}
                     />
                     Research Scholar
-                  </label>
+                  </labe>
                 </div>
                 {/* </div> */}
                 <div>
-                  <label>
+                  <label className="p-3 text-lg">
                     <input
                       style={{
                         borderRadius: 10,
@@ -499,7 +520,7 @@ export default function Form() {
                     Industry
                   </label>
 
-                  <label>
+                  <label className="p-3 text-lg">
                     <input
                       style={{
                         borderRadius: 10,
@@ -519,7 +540,7 @@ export default function Form() {
                   </label>
                 </div>
                 <div>
-                  <label>
+                  <label className="p-3 text-lg">
                     <input
                       style={{
                         borderRadius: 10,
@@ -627,17 +648,14 @@ export default function Form() {
             </div>
           ) : null}
 
-          <div>
-            <label>
+          <div className="">
+            <label className="font-bold text-2xl">
               Payment Proof
-              <text className="text-red-700 font-medium font-bold">*</text>
+              <text className="text-red-700 font-medium">*</text>
               <br />
               <input
-                style={{
-                  // borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                }}
+              className=" text-lg pt-5 px-5  font-normal bg-white border-dashed border rounded-lg border-gray-600 w-1/2 h-20"
+               
                 // type="number"
                 type="file"
                 name="ScreenShot"
@@ -671,7 +689,7 @@ export default function Form() {
           </div>
           <div className="flex  justify-center">
             <button
-              className="bg-blue-200 p-3 my-3 self-center rounded-2xl hover:bg-blue-300 hover:p-3.5"
+              className="bg-blue-200 p-3 my-3 shadow-lg border border-blue-400 self-center rounded-2xl hover:bg-blue-300 hover:p-3.5"
               type="submit"
             >
               Submit

@@ -6,6 +6,7 @@ import BankAccountDetails from "./components/BankAccountDetails";
 export default function Home(params) {
   return (
     <>
+    <div className="bg-gray-200 p-10 rounded-md">
       {/* <Header /> */}
       <Overview />
       {/* <BeforeSubmission /> */}
@@ -15,6 +16,7 @@ export default function Home(params) {
         accountNumber="00158-58000-08501"
         ifscCode="YESB0000015"
       />
+      </div>
     </>
   );
 }
