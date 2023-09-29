@@ -15,6 +15,12 @@ const BankAccountDetails = ({ accountHolder, accountNumber, ifscCode }) => {
         <p>
           <strong>IFSC Code:</strong> {ifscCode}
         </p>
+        <p>
+          <strong>Branch:  </strong> Chandigarh
+        </p>
+        <p>
+          <strong>UPI ID:</strong>  9411821385@jio
+        </p>
       </div>
     </div>
   );
