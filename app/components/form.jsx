@@ -1,5 +1,7 @@
 "use client"; // This is a client component 👈🏽
 //svs
+import { PrismCodeBlock } from "react-prism-code-block";
+
 // import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useState, useEffect, useMemo } from "react";
@@ -11,6 +13,7 @@ import FormData from "form-data";
 // import React from "react";
 import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
+import Paypal from "./Paypal";
 export default function Form() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,7 +26,7 @@ export default function Form() {
     city: "",
     state: "",
     postalCode: "",
-    country: "",
+    country: "India",
     areYouA: "",
     amountPaid: "",
     paperId: "",
@@ -33,11 +36,12 @@ export default function Form() {
     memberType: "",
   });
   const [image, setImage] = useState("");
-  const [value, setValue] = useState("India");
+  const [value, setValue] = useState({ value: "IN", label: "India" });
   const options = useMemo(() => countryList().getData(), []);
   const [amountPaid, setAmountPaid] = useState();
   const changeHandler = (value) => {
-    setValue(value.label);
+    setValue(value);
+    console.log(value);
     setFormData({
       ...formData,
       country: value.label,
@@ -200,15 +204,16 @@ export default function Form() {
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit}>
           <div className="name-row w-full ">
-            <label className="font-bold text-2xl pb-3">Name <span className="text-red-700">*</span></label>
-            
-            
+            <label className="font-bold text-2xl pb-3">
+              Name <span className="text-red-700">*</span>
+            </label>
+
             <div className="flex justfy-center flex-col md:flex-row gap-5 md:gap-10 w-full pb-4  ">
-              <input className="w-80 h-10"
+              <input
+                className="w-80 h-10"
                 style={{
                   borderRadius: 10,
                   paddingHorizontal: 10,
-
                 }}
                 type="text"
                 name="firstName"
@@ -241,7 +246,7 @@ export default function Form() {
                 <text className="text-red-700 font-medium mb-">*</text>
                 <br />
                 <input
-                className="w-80 h-10 font-medium pt-3"
+                  className="w-80 h-10 font-medium pt-3"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -256,8 +261,7 @@ export default function Form() {
                 />
               </label>
             </div>
-            
-            
+
             <div className="w-full">
               <label className="font-bold text-2xl">
                 Phone
@@ -280,52 +284,51 @@ export default function Form() {
               </label>
             </div>
           </div>
-          
-          <div className="flex flex-col md:flex-row gap-10">
-          <div className="w-full pb-4">
-            <label className="font-bold text-2xl">
-              Organisation
-              <text className="text-red-700 font-medium font-bold">*</text>
-              <br />
-              <input
-              className="w-80 h-10 font-medium"
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                }}
-                type="text"
-                name="organization"
-                placeholder="Organization"
-                value={formData.organization}
-                onChange={handleChange}
-                required
-              />
-            </label>
-          </div>
-          
 
-          <div className="w-full pb-4">
-            <label className="font-bold text-2xl">
-              Qualification
-              <text className="text-red-700 font-medium">*</text>
-              <br />
-              <input
-              className="font-medium w-80 h-10"
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  marginBottom: 5,
-                }}
-                type="text"
-                placeholder="Qualification"
-                name="qualification"
-                value={formData.qualification}
-                onChange={handleChange}
-                required
-              />
-            </label>
-          </div>
+          <div className="flex flex-col md:flex-row gap-10">
+            <div className="w-full pb-4">
+              <label className="font-bold text-2xl">
+                Organisation
+                <text className="text-red-700 font-medium font-bold">*</text>
+                <br />
+                <input
+                  className="w-80 h-10 font-medium"
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 10,
+                    marginBottom: 5,
+                  }}
+                  type="text"
+                  name="organization"
+                  placeholder="Organization"
+                  value={formData.organization}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </div>
+
+            <div className="w-full pb-4">
+              <label className="font-bold text-2xl">
+                Qualification
+                <text className="text-red-700 font-medium">*</text>
+                <br />
+                <input
+                  className="font-medium w-80 h-10"
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 10,
+                    marginBottom: 5,
+                  }}
+                  type="text"
+                  placeholder="Qualification"
+                  name="qualification"
+                  value={formData.qualification}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </div>
           </div>
 
           <div className="pr-10 pb-4 w-full ">
@@ -335,7 +338,7 @@ export default function Form() {
               <br />
               <div className="flex flex-col mr-10">
                 <input
-                className="font-medium w-80 h-10 "
+                  className="font-medium w-80 h-10 "
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -350,7 +353,7 @@ export default function Form() {
                   required
                 />
                 <input
-                className="font-medium w-80 h-10"
+                  className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -368,7 +371,7 @@ export default function Form() {
               {/* <br /> */}
               <div className="flex flex-col">
                 <input
-                className="font-medium w-80 h-10"
+                  className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -383,7 +386,7 @@ export default function Form() {
                   required
                 />
                 <input
-                className="font-medium w-80 h-10"
+                  className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -405,7 +408,6 @@ export default function Form() {
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <Select
-
                 placeholder="Select Country"
                 name="country"
                 options={options}
@@ -435,7 +437,6 @@ export default function Form() {
                 onChange={handleChange}
                 required
               />
-
               <span className="text-lg font-medium">Author</span>
               <input
                 style={{
@@ -654,8 +655,7 @@ export default function Form() {
               <text className="text-red-700 font-medium">*</text>
               <br />
               <input
-              className=" text-lg pt-5 px-5  font-normal bg-white border-dashed border rounded-lg border-gray-600 w-1/2 h-20"
-               
+                className=" text-lg pt-5 px-5  font-normal bg-white border-dashed border rounded-lg border-gray-600 w-1/2 h-20"
                 // type="number"
                 type="file"
                 name="ScreenShot"
@@ -697,37 +697,43 @@ export default function Form() {
           </div>
         </form>
       </div>
-      {formData.amountPaid>=69?
-      <div>
+      {formData.amountPaid >= 3000 && formData.country === "India" ? (
+        <div>
+          {/* </div> */}
+          <div className="flex justify-center flex-row">
+            <QRCode
+              size={256}
+              style={{
+                height: "auto",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              value={`upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`}
+              viewBox={`0 0 256 256`}
+            />
+          </div>
+          <div className="flex justify-center mt-3">
+            <button
+              className="p-2 rounded-md bg-green-400 self-center"
+              onClick={() => {
+                window.open(
+                  `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
+                  "_blank"
+                );
+              }}
+            >
+              Pay Now
+            </button>
+          </div>
+        </div>
+      ) : null}
 
-      {/* </div> */}
-      <div className="flex justify-center flex-row">
-        <QRCode
-          size={256}
-          style={{
-            height: "auto",
-            alignSelf: "center",
-            alignContent: "center",
-          }}
-          value={`upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`}
-          viewBox={`0 0 256 256`}
-        />
-      </div>
-      <div className="flex justify-center mt-3">
-        <button
-          className="p-2 rounded-md bg-green-400 self-center"
-          onClick={() => {
-            window.open(
-              `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
-              "_blank"
-            );
-          }}
-        >
-          Pay Now
-        </button>
-      </div>
-      </div>
-      :null}
+      {formData.amountPaid >= 70 && formData.country !== "India" ? (
+        <div>{/* </div> */}
+      <Paypal/>
+        </div>
+      ) : null}
+      
     </>
   );
 }

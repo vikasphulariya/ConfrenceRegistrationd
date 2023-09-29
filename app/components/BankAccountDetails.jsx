@@ -21,6 +21,9 @@ const BankAccountDetails = ({ accountHolder, accountNumber, ifscCode }) => {
         <p>
           <strong>UPI ID:</strong>  9411821385@jio
         </p>
+        <p>
+          <strong>Paypal ID:</strong>  Editor.ijiet@gmail.com
+        </p>
       </div>
     </div>
   );
