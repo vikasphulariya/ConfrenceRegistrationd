@@ -7,7 +7,7 @@ export default function Overview(params) {
         </h1>
 
         <div className="flex justify-center mt-10">
-          <div className="container ">
+          <div className="flex justify-center container ">
             <table 
               style={{ borderWidth: 1.5, borderRadius: 10, }}
               className="border border-collapse  border-black rounded-md"

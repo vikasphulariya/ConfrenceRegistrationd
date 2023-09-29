@@ -5,6 +5,12 @@ import axios from "axios";
 import { useState, useEffect, useMemo } from "react";
 import countryList from "react-select-country-list";
 import Select from "react-select";
+import { stringify } from "postcss";
+import FormData from "form-data";
+
+// import React from "react";
+import ReactDOM from "react-dom";
+import QRCode from "react-qr-code";
 export default function Form() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -26,7 +32,7 @@ export default function Form() {
     totalPaperPages: 0,
     memberType: "",
   });
-
+  const [image, setImage] = useState("");
   const [value, setValue] = useState("India");
   const options = useMemo(() => countryList().getData(), []);
   const [amountPaid, setAmountPaid] = useState();
@@ -86,6 +92,26 @@ export default function Form() {
     formData.country,
   ]);
 
+  const [imageData, setImageData] = useState(null);
+
+  const handleImageChange = (event) => {
+    const selectedImageFile = event.target.files[0];
+
+    if (selectedImageFile) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const base64String = reader.result.split(",")[1]; // Extract Base64 data
+        setImageData(base64String);
+        // console.log(base64String);
+      };
+      reader.readAsDataURL(selectedImageFile);
+      // Read the image file as Data URL
+    } else {
+      setImageData(null); // Reset if no image is selected
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
@@ -97,51 +123,80 @@ export default function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here, e.g., send data to server or perform validation
-    console.log(formData);
-    let data = JSON.stringify({
-      First: formData.firstName,
-      Last: formData.lastName,
-      email: formData.email,
-      Phone: formData.phone,
-      organization: formData.organization,
-      qualification: formData.qualification,
-      Address: formData.addressLine1,
-      City: formData.city,
-      State:formData.state,
-      Pin: formData.postalCode,
-      country: formData.country,
-      Catagory: formData.areYouA,
-      subCatgory: formData.areYouA === "Author" ? formData.memberType : "NA",
-      PaperId: formData.areYouA === "Author" ? formData.paperId : "NA",
-      PaperTitle: formData.areYouA === "Author" ? formData.paperTitle : "NA",
-      PaperAuthor: formData.areYouA === "Author" ? formData.paperAuthors : "NA",
-      pageNo: formData.areYouA === "Author" ? formData.totalPaperPages : "NA",
-      Total: formData.amountPaid,
-    });
+    // let imageUploaded = false;
+    let data1 = new FormData();
+    data1.append("image", imageData);
 
-    let config = {
+    let config1 = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://testingapps.pythonanywhere.com/api/insert/",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
+      url: "https://api.imgbb.com/1/upload?key=101405e8c4bd3a056e79883b57b8b8f8",
+
+      data: data1,
     };
 
     axios
-      .request(config)
+      .request(config1)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        let k = response.data.data.url;
+        console.log(JSON.stringify(k));
+        if (response.data.success === true) {
+          let data = JSON.stringify({
+            First: formData.firstName,
+            Last: formData.lastName,
+            email: formData.email,
+            Phone: formData.phone,
+            organization: formData.organization,
+            qualification: formData.qualification,
+            Address: formData.addressLine1,
+            City: formData.city,
+            State: formData.state,
+            Pin: formData.postalCode,
+            country: formData.country,
+            Catagory: formData.areYouA,
+            subCatgory:
+              formData.areYouA === "Author" ? formData.memberType : "NA",
+            PaperId: formData.areYouA === "Author" ? formData.paperId : "NA",
+            PaperTitle:
+              formData.areYouA === "Author" ? formData.paperTitle : "NA",
+            PaperAuthor:
+              formData.areYouA === "Author" ? formData.paperAuthors : "NA",
+            pageNo:
+              formData.areYouA === "Author" ? formData.totalPaperPages : "NA",
+            Total: formData.amountPaid,
+            Imagel: k,
+          });
+
+          let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "https://testingapps.pythonanywhere.com/api/insert/",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: data,
+          };
+
+          axios
+            .request(config)
+            .then((response) => {
+              console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       })
       .catch((error) => {
         console.log(error);
       });
+
+    // Handle form submission here, e.g., send data to server or perform validation
+    console.log(formData);
   };
   return (
     <>
-      <div className="justify-center  container pr-2 mr-2">
+      <div className="flex justify-center  container pr-2 mr-2">
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit}>
           <div>
@@ -574,6 +629,29 @@ export default function Form() {
 
           <div>
             <label>
+              Payment Proof
+              <text className="text-red-700 font-medium font-bold">*</text>
+              <br />
+              <input
+                style={{
+                  // borderRadius: 10,
+                  paddingHorizontal: 10,
+                  marginBottom: 5,
+                }}
+                // type="number"
+                type="file"
+                name="ScreenShot"
+                // value={"amountPaid"}
+                accept="image/*"
+                onChange={handleImageChange}
+                required
+                // disabled
+              />
+            </label>
+          </div>
+
+          <div>
+            <label>
               Amount Paid {formData.country === "India" ? `₹` : `$`}
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
@@ -586,7 +664,6 @@ export default function Form() {
                 // type="number"
                 name="amountPaid"
                 value={amountPaid}
-                // onChange={}
                 required
                 disabled
               />
@@ -602,6 +679,37 @@ export default function Form() {
           </div>
         </form>
       </div>
+      {formData.amountPaid>=100?
+      <div>
+
+      {/* </div> */}
+      <div className="flex justify-center flex-row">
+        <QRCode
+          size={256}
+          style={{
+            height: "auto",
+            alignSelf: "center",
+            alignContent: "center",
+          }}
+          value={`upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`}
+          viewBox={`0 0 256 256`}
+        />
+      </div>
+      <div className="flex justify-center mt-3">
+        <button
+          className="p-2 rounded-md bg-green-400 self-center"
+          onClick={() => {
+            window.open(
+              `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
+              "_blank"
+            );
+          }}
+        >
+          Pay Now
+        </button>
+      </div>
+      </div>
+      :null}
     </>
   );
 }
