@@ -679,7 +679,7 @@ export default function Form() {
           </div>
         </form>
       </div>
-      {formData.amountPaid>=100?
+      {formData.amountPaid>=69?
       <div>
 
       {/* </div> */}
