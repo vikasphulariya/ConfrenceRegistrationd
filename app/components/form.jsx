@@ -727,7 +727,7 @@ export default function Form() {
                 className="p-2 rounded-md bg-green-400 self-center"
                 onClick={() => {
                   window.open(
-                    `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${formData.amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
+                    `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
                     "_blank"
                   );
                 }}
