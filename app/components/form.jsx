@@ -1,47 +1,16 @@
 "use client"; // This is a client component 👈🏽
 //svs
-import { PrismCodeBlock } from "react-prism-code-block";
 // import QRCodeStyling from "qr-code-styling";
-// import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useState, useEffect, useMemo } from "react";
 import countryList from "react-select-country-list";
 import Select from "react-select";
-import { stringify } from "postcss";
-import FormData from "form-data";
 import QRCode from "react-qr-code";
 import Paypal from "./Paypal";
-import Overview from "./Overview";
-import QRCodeStyling, {
-  DrawType,
-  TypeNumber,
-  Mode,
-  ErrorCorrectionLevel,
-  DotType,
-  CornerSquareType,
-  CornerDotType,
-  Extension,
-  Options
-} from "qr-code-styling";
+
 export default function Form() {
-  const qrCode = new QRCodeStyling({
-    width: 300,
-    height: 300,
-    type: "svg",
-    data: "https://www.facebook.com/",
-    image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-    dotsOptions: {
-        color: "#4267b2",
-        type: "rounded"
-    },
-    backgroundOptions: {
-        color: "#e9ebee",
-    },
-    imageOptions: {
-        crossOrigin: "anonymous",
-        margin: 20
-    }
-});
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

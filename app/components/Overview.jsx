@@ -1,6 +1,6 @@
 
-// import Image from "next/image";
-// import Table from "./Tabke.png"
+import Image from "next/image";
+import Table from "./Tabke.png"
 export default function Overview(params) {
   return (
     <>
@@ -183,7 +183,7 @@ export default function Overview(params) {
                 </tr>
               </tbody>
             </table> */}
-            {/* <Image className=" rounded-md border-[1px] border-black" src={Table} alt="Table"/> */}
+            <Image className=" rounded-md border-[1px] border-black" src={Table} alt="Table"/>
           </div>
         </div>
        
