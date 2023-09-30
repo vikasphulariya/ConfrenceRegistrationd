@@ -204,7 +204,7 @@ export default function Form() {
     <>
     <Overview/>
     <div className="">
-      <div className=" flex flex-1 justify-center bg-red-300 w-full  mx-auto pl-20 md:pl-0 py-8 md:flex md:flex-1 md:w-max sm:flex sm:w-full rounded-lg">
+      <div className=" flex flex-1 justify-center w-full  mx-auto pl-20 md:pl-0 py-8 md:flex md:flex-1 md:w-max sm:flex sm:w-full rounded-lg">
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit} className="  justify-center">
           <div className="name-row w-full justify-center ">
