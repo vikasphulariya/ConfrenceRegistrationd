@@ -3,16 +3,6 @@ import React from "react";
 function Paypal() {
   const textToCopy = "Editor.ijiet@gmail.com";
 
-  const handleCopyClick = () => {
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        alert('Text copied to clipboard!');
-      })
-      .catch((err) => {
-        console.error('Failed to copy text: ', err);
-      });
-  };
-
   return (
     <div>
       <div className="flex flex-col bg-[#f4f4f4] p-3 rounded-md shadow-xl border-black border-[1] m-5">

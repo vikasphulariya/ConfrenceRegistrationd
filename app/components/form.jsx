@@ -1,7 +1,7 @@
 "use client"; // This is a client component 👈🏽
 //svs
 import { PrismCodeBlock } from "react-prism-code-block";
-
+// import QRCodeStyling from "qr-code-styling";
 // import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useState, useEffect, useMemo } from "react";
@@ -12,7 +12,36 @@ import FormData from "form-data";
 import QRCode from "react-qr-code";
 import Paypal from "./Paypal";
 import Overview from "./Overview";
+import QRCodeStyling, {
+  DrawType,
+  TypeNumber,
+  Mode,
+  ErrorCorrectionLevel,
+  DotType,
+  CornerSquareType,
+  CornerDotType,
+  Extension,
+  Options
+} from "qr-code-styling";
 export default function Form() {
+  const qrCode = new QRCodeStyling({
+    width: 300,
+    height: 300,
+    type: "svg",
+    data: "https://www.facebook.com/",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+    dotsOptions: {
+        color: "#4267b2",
+        type: "rounded"
+    },
+    backgroundOptions: {
+        color: "#e9ebee",
+    },
+    imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 20
+    }
+});
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -202,8 +231,9 @@ export default function Form() {
   };
   return (
     <>
-    <Overview/>
+    {/* <Overview/> */}
     <div className="">
+
       <div className=" flex flex-1 justify-center w-full  mx-auto pl-20 md:pl-0 py-8 md:flex md:flex-1 md:w-max sm:flex sm:w-full rounded-lg">
         {/* <h2>Registration Form</h2> */}
         <form onSubmit={handleSubmit} className="  justify-center">
@@ -227,7 +257,7 @@ export default function Form() {
                 required
               />
               <input
-                className=" w-80 h-10 "
+                className=" w-80 h-10 md:ml-3"
                 style={{
                   borderRadius: 10,
                   paddingHorizontal: 10,
@@ -243,7 +273,7 @@ export default function Form() {
             </div>
           </div>
 
-          <div className=" w-full flex gap-10 flex-col md:flex-row pb-4">
+          <div className=" w-full flex gap-2 flex-col md:flex-row pb-4">
             <div className="w-full">
               <label className="font-bold text-2xl mb-3  ">
                 Email
@@ -289,9 +319,9 @@ export default function Form() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-10">
-            <div className="w-full pb-4">
-              <label className="font-bold text-2xl">
+          <div className="w-full flex gap-2 flex-col md:flex-row pb-4">
+            <div className="w-full  md:pb-4">
+              <label className="font-bold text-2xl mb-2">
                 Organisation
                 <text className="text-red-700 font-medium font-bold">*</text>
                 <br />
@@ -300,7 +330,7 @@ export default function Form() {
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
-                    marginBottom: 5,
+                    // marginBottom: 5,
                   }}
                   type="text"
                   name="organization"
@@ -312,7 +342,7 @@ export default function Form() {
               </label>
             </div>
 
-            <div className="w-full pb-4">
+          <div className="w-full pb-4">
               <label className="font-bold text-2xl">
                 Qualification
                 <text className="text-red-700 font-medium">*</text>
@@ -322,7 +352,7 @@ export default function Form() {
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
-                    marginBottom: 5,
+                    // marginBottom: 5,
                   }}
                   type="text"
                   placeholder="Qualification"
@@ -340,9 +370,10 @@ export default function Form() {
               Address
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
-              <div className="flex flex-col mr-10">
+              <div className="w-full flex gap-2 flex-col md:flex-row pb-4">
+              {/* <div className="w-full pb-4"></div> */}
                 <input
-                  className="font-medium w-80 h-10 "
+                  className="font-medium w-80 h-10  "
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -357,7 +388,7 @@ export default function Form() {
                   required
                 />
                 <input
-                  className="font-medium w-80 h-10"
+                  className="font-medium w-80 h-10 md:ml-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
@@ -373,13 +404,13 @@ export default function Form() {
                 />
               </div>
               {/* <br /> */}
-              <div className="flex flex-col">
+              <div className="w-full flex gap-2 flex-col md:flex-row pb-4">
                 <input
                   className="font-medium w-80 h-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
-                    marginBottom: 5,
+                    // marginBottom: 5,
                     marginRight: 5,
                   }}
                   type="text"
@@ -390,11 +421,11 @@ export default function Form() {
                   required
                 />
                 <input
-                  className="font-medium w-80 h-10"
+                  className="font-medium w-80 h-10 md:ml-10"
                   style={{
                     borderRadius: 10,
                     paddingHorizontal: 10,
-                    marginBottom: 5,
+                    // marginBottom: 5,
                   }}
                   type="number"
                   name="postalCode"
@@ -683,6 +714,7 @@ export default function Form() {
                   paddingHorizontal: 10,
                   marginBottom: 5,
                 }}
+                className="w-80"
                 // type="number"
                 name="amountPaid"
                 value={amountPaid}
@@ -738,6 +770,8 @@ export default function Form() {
           <Paypal />
         </div>
       ) : null}
+    
+      
       </div>
     </>
   );

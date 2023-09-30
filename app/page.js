@@ -6,9 +6,9 @@ import BankAccountDetails from "./components/BankAccountDetails";
 export default function Home(params) {
   return (
     <>
-    <div className="mx-2 flex flex-col container  rounded-md justify-center">
+    <div className="mx-2 flex flex-col container  rounded-md justify-center w-full">
       {/* <Header /> */}
-      {/* <Overview /> */}
+      <Overview />
       {/* <BeforeSubmission /> */}
       <Form />
       <BankAccountDetails
