@@ -1,15 +1,19 @@
-
 import Image from "next/image";
-import Table from "./Tabke.png"
+import Table from "./Tabke.png";
 export default function Overview(params) {
   return (
     <>
       <div className=" mb-1  justify-center">
         <h1 className="text-2xl font-semibold self-center mt-3 text-center md:text-4xl ">
-          Registration 
+          Registration
         </h1>
         <div className="flex justify-center mt-10">
-          <div className="flex justify-center container ">
+          <Image
+            className=" rounded-md border-[1px] border-black w  md:w-max"
+            src={Table}
+            alt="Table"
+          />
+          {/* <div className="flex justify-center container ">
             {/* <table 
               style={{ borderWidth: 1.5, borderRadius: 10, }}
               className="border border-collapse  border-black rounded-md"
@@ -183,10 +187,8 @@ export default function Overview(params) {
                 </tr>
               </tbody>
             </table> */}
-            <Image className=" rounded-md border-[1px] border-black md:w-max" src={Table} alt="Table"/>
-          </div>
+          {/* </div> */}
         </div>
-       
       </div>
     </>
   );
