@@ -9,11 +9,9 @@ import countryList from "react-select-country-list";
 import Select from "react-select";
 import { stringify } from "postcss";
 import FormData from "form-data";
-
-// import React from "react";
-import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 import Paypal from "./Paypal";
+import Overview from "./Overview";
 export default function Form() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -49,6 +47,7 @@ export default function Form() {
   };
 
   useEffect(() => {
+    let k = formData.country === "India" ? `₹ ` : `$ `;
     let temp = 0;
     let extra = 0;
     if (formData.areYouA === "Delegate") {
@@ -84,11 +83,14 @@ export default function Form() {
             : (formData.totalPaperPages - 8) * 9;
       }
     }
-    setAmountPaid(temp + extra);
-    setFormData({
-      ...formData,
-      amountPaid: temp + extra,
-    });
+    if(temp!==0 || extra!==0 ){
+
+      setAmountPaid((temp + extra));
+      setFormData({
+        ...formData,
+        amountPaid: k +( temp + extra),
+      });
+    }
   }, [
     formData.areYouA,
     formData.memberType,
@@ -200,10 +202,12 @@ export default function Form() {
   };
   return (
     <>
-      <div className=" flex justify-center container mx-auto pl-20 md:pl-0 py-8  rounded-lg">
+    <Overview/>
+    <div className="">
+      <div className=" flex flex-1 justify-center bg-red-300 w-full  mx-auto pl-20 md:pl-0 py-8 md:flex md:flex-1 md:w-max sm:flex sm:w-full rounded-lg">
         {/* <h2>Registration Form</h2> */}
-        <form onSubmit={handleSubmit}>
-          <div className="name-row w-full ">
+        <form onSubmit={handleSubmit} className="  justify-center">
+          <div className="name-row w-full justify-center ">
             <label className="font-bold text-2xl pb-3">
               Name <span className="text-red-700">*</span>
             </label>
@@ -668,9 +672,9 @@ export default function Form() {
             </label>
           </div>
 
-          <div>
-            <label>
-              Amount Paid {formData.country === "India" ? `₹` : `$`}
+          <div className="mt-3">
+            <label className="font-bold text-2xl ">
+              Amount Paid
               <text className="text-red-700 font-medium font-bold">*</text>
               <br />
               <input
@@ -697,7 +701,7 @@ export default function Form() {
           </div>
         </form>
       </div>
-      {formData.amountPaid >= 3000 && formData.country === "India" ? (
+      {amountPaid >= 3000 && formData.country === "India" ? (
         <div>
           {/* </div> */}
           <div className="flex justify-center flex-row">
@@ -728,12 +732,13 @@ export default function Form() {
         </div>
       ) : null}
 
-      {formData.amountPaid >= 70 && formData.country !== "India" ? (
-        <div>{/* </div> */}
-      <Paypal/>
+      {amountPaid >= 70 && formData.country !== "India" ? (
+        <div>
+          {/* </div> */}
+          <Paypal />
         </div>
       ) : null}
-      
+      </div>
     </>
   );
 }
