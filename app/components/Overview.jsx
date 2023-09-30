@@ -5,7 +5,7 @@ export default function Overview(params) {
   return (
     <>
       <div className=" mb-1  justify-center">
-        <h1 className="text-2xl font-semibold self-center text-center md:text-4xl ">
+        <h1 className="text-2xl font-semibold self-center mt-3 text-center md:text-4xl ">
           Registration 
         </h1>
         <div className="flex justify-center mt-10">
@@ -183,7 +183,7 @@ export default function Overview(params) {
                 </tr>
               </tbody>
             </table> */}
-            <Image className=" rounded-md border-[1px] border-black" src={Table} alt="Table"/>
+            <Image className=" rounded-md border-[1px] border-black md:w-max" src={Table} alt="Table"/>
           </div>
         </div>
        
