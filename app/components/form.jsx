@@ -1,5 +1,7 @@
 "use client"; // This is a client component 👈🏽
 //svs
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+
 // import QRCodeStyling from "qr-code-styling";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -723,17 +725,20 @@ export default function Form() {
               <QrScreen data={amountPaid} />
             </div>
             <div className="flex justify-center mt-3">
+              <MobileView>
+
               <button
                 className="p-2 rounded-md bg-green-400 self-center"
                 onClick={() => {
                   window.open(
                     `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
                     "_blank"
-                  );
-                }}
-              >
+                    );
+                  }}
+                  >
                 Pay Now
               </button>
+                </MobileView>
             </div>
           </div>
         ) : null}
