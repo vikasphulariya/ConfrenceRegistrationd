@@ -676,6 +676,8 @@ export default function Form() {
                           // value={"amountPaid"}
                           accept="image/*"
                           required
+                          // onChange={}
+                          onChange={handleImageChange}
                         />
                       </label>
                       <p className="pl-1">or drag and drop</p>
