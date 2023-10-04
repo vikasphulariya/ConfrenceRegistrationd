@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"; // This is a client component 👈🏽
 //svs
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-
+import { CSSProperties } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 // import QRCodeStyling from "qr-code-styling";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -9,9 +11,21 @@ import { useState, useEffect, useMemo } from "react";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 import QRCode from "react-qr-code";
+import Lottie from 'react-lottie-player'
+// Alternatively:
+// import Lottie from 'react-lottie-player/dist/LottiePlayerLight'
+
+import lottieJson from './loading.json'
 import Paypal from "./Paypal";
 import QrScreen from "./QrScreen";
+// const override: CSSProperties = {
+//   display: "block",
+//   margin: "0 auto",
+//   borderColor: "red",
+// };
 export default function Form() {
+  let [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -125,6 +139,7 @@ export default function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true)
     // let imageUploaded = false;
     let data1 = new FormData();
     data1.append("image", imageData);
@@ -183,14 +198,20 @@ export default function Form() {
             .request(config)
             .then((response) => {
               console.log(JSON.stringify(response.data));
+              setLoading(false)
+              alert("Form Submitted Succesfully")
             })
             .catch((error) => {
               console.log(error);
+              setLoading(false)
+              alert("Form Submission Failed")
             });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false)
+          alert("Image Upload Failed")
       });
 
     // Handle form submission here, e.g., send data to server or perform validation
@@ -289,7 +310,7 @@ export default function Form() {
               <div className="w-full  md:pb-4">
                 <label className="font-bold text-2xl mb-2">
                   Organisation
-                  <text className="text-red-700 font-medium font-bold">*</text>
+                  <text className="text-red-700  font-bold">*</text>
                   <br />
                   <input
                     className="w-80 h-10 font-medium"
@@ -334,7 +355,7 @@ export default function Form() {
             <div className="pr-10 pb-4 w-full ">
               <label className="text-2xl font-bold ">
                 Address
-                <text className="text-red-700 font-medium font-bold">*</text>
+                <text className="text-red-700  font-bold">*</text>
                 <br />
                 <div className="w-full flex gap-2 flex-col md:flex-row pb-4">
                   {/* <div className="w-full pb-4"></div> */}
@@ -720,6 +741,18 @@ export default function Form() {
             </div>
           </form>
         </div>
+        
+     {loading?
+     <div className='flex justify-center flex-col'>
+      <Lottie
+      loop
+      animationData={lottieJson}
+      play
+      style={{ width: 150, height: 150 ,alignSelf:'center'}}
+    />
+    <label style={{alignSelf:'center'}} className='  text-xl font-bold'>Submitting Form</label>
+     </div>
+     :null}
         {amountPaid >= 3000 && formData.country === "India" ? (
           <div>
             {/* </div> */}
@@ -751,6 +784,7 @@ export default function Form() {
             <Paypal />
           </div>
         ) : null}
+   
       </div>
     </>
   );
