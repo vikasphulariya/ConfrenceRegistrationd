@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"; // This is a client component 👈🏽
 //svs
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
 import { CSSProperties } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 // import QRCodeStyling from "qr-code-styling";
@@ -11,11 +16,11 @@ import { useState, useEffect, useMemo } from "react";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 import QRCode from "react-qr-code";
-import Lottie from 'react-lottie-player'
+import Lottie from "react-lottie-player";
 // Alternatively:
 // import Lottie from 'react-lottie-player/dist/LottiePlayerLight'
 
-import lottieJson from './loading.json'
+import lottieJson from "./loading.json";
 import Paypal from "./Paypal";
 import QrScreen from "./QrScreen";
 // const override: CSSProperties = {
@@ -24,6 +29,7 @@ import QrScreen from "./QrScreen";
 //   borderColor: "red",
 // };
 export default function Form() {
+  const [currentTime, setCurrentTime] = useState(new Date());
   let [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -139,7 +145,7 @@ export default function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     // let imageUploaded = false;
     let data1 = new FormData();
     data1.append("image", imageData);
@@ -155,6 +161,16 @@ export default function Form() {
     axios
       .request(config1)
       .then((response) => {
+        const dateS =
+          currentTime.getDate() +
+          " " +
+          currentTime.toLocaleString("default", { month: "short" }) +
+          " " +
+          currentTime.getFullYear();
+        const timeS = currentTime.toLocaleString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
         let k = response.data.data.url;
         console.log(JSON.stringify(k));
         if (response.data.success === true) {
@@ -170,6 +186,8 @@ export default function Form() {
             State: formData.state,
             Pin: formData.postalCode,
             country: formData.country,
+            date:dateS,
+            time:timeS,
             Catagory: formData.areYouA,
             subCatgory:
               formData.areYouA === "Author" ? formData.memberType : "NA",
@@ -181,7 +199,7 @@ export default function Form() {
             pageNo:
               formData.areYouA === "Author" ? formData.totalPaperPages : "NA",
             Total: formData.amountPaid,
-            Imagel: k,
+            Imagel: k,  
           });
 
           let config = {
@@ -198,20 +216,40 @@ export default function Form() {
             .request(config)
             .then((response) => {
               console.log(JSON.stringify(response.data));
-              setLoading(false)
-              alert("Form Submitted Succesfully")
+              setLoading(false);
+              alert("Form Submitted Succesfully");
+              setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                organization: "",
+                qualification: "",
+                addressLine1: "",
+                city: "",
+                state: "",
+                postalCode: "",
+                country: "India",
+                areYouA: "",
+                amountPaid: "",
+                paperId: "",
+                paperTitle: "",
+                paperAuthors: "",
+                totalPaperPages: 0,
+                memberType: "",
+              });
             })
             .catch((error) => {
               console.log(error);
-              setLoading(false)
-              alert("Form Submission Failed")
+              setLoading(false);
+              alert("Form Submission Failed");
             });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false)
-          alert("Image Upload Failed")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        alert("Image Upload Failed");
       });
 
     // Handle form submission here, e.g., send data to server or perform validation
@@ -733,7 +771,7 @@ export default function Form() {
             </div>
             <div className="flex  justify-center">
               <button
-disabled={loading}
+                disabled={loading}
                 className="bg-blue-200 p-3 my-3 shadow-lg border border-blue-400 self-center rounded-2xl hover:bg-blue-300 hover:p-3.5"
                 type="submit"
               >
@@ -742,18 +780,33 @@ disabled={loading}
             </div>
           </form>
         </div>
-        
-     {loading?
-     <div className='flex justify-center flex-col'>
-      <Lottie
-      loop
-      animationData={lottieJson}
-      play
-      style={{ width: 150, height: 150 ,alignSelf:'center'}}
-    />
-    <label style={{alignSelf:'center'}} className='  text-xl font-bold'>Submitting Form</label>
-     </div>
-     :null}
+        {/* <div>
+          <button
+            onClick={() => {
+             
+              console.log(dateS,timeS);
+            }}
+          >
+            time
+          </button>
+        </div> */}
+
+        {loading ? (
+          <div className="flex justify-center flex-col">
+            <Lottie
+              loop
+              animationData={lottieJson}
+              play
+              style={{ width: 150, height: 150, alignSelf: "center" }}
+            />
+            <label
+              style={{ alignSelf: "center" }}
+              className="  text-xl font-bold"
+            >
+              Submitting Form
+            </label>
+          </div>
+        ) : null}
         {amountPaid >= 3000 && formData.country === "India" ? (
           <div>
             {/* </div> */}
@@ -762,19 +815,18 @@ disabled={loading}
             </div>
             <div className="flex justify-center mt-3">
               <MobileView>
-
-              <button
-                className="p-2 rounded-md bg-green-400 self-center"
-                onClick={() => {
-                  window.open(
-                    `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
-                    "_blank"
+                <button
+                  className="p-2 rounded-md bg-green-400 self-center"
+                  onClick={() => {
+                    window.open(
+                      `upi://pay?pa=9411821385@jio&pn=Novel%20research%20found&am=${amountPaid}&tn=Payment%20For%20Confrence&cu=INR`,
+                      "_blank"
                     );
                   }}
-                  >
-                Pay Now
-              </button>
-                </MobileView>
+                >
+                  Pay Now
+                </button>
+              </MobileView>
             </div>
           </div>
         ) : null}
@@ -785,7 +837,6 @@ disabled={loading}
             <Paypal />
           </div>
         ) : null}
-   
       </div>
     </>
   );
