@@ -8,7 +8,7 @@ export default function Overview(params) {
           Registration
         </h1>
         <div className="flex justify-center mt-10">
-          <Image
+          <img
             className=" rounded-md border-[1px] border-black w  md:w-max"
             src="https://i.ibb.co/qk06GFj/EXCEL-EOUEa2-CCVr.png"
             alt="Table"
