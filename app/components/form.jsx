@@ -769,7 +769,7 @@ export default function Form() {
                 />
               </label>
             </div>
-            <div className="flex  justify-center">
+            {loading?null:<div className="flex  justify-center">
               <button
                 disabled={loading}
                 className="bg-blue-200 p-3 my-3 shadow-lg border border-blue-400 self-center rounded-2xl hover:bg-blue-300 hover:p-3.5"
@@ -777,7 +777,7 @@ export default function Form() {
               >
                 Submit
               </button>
-            </div>
+            </div>}
           </form>
         </div>
         {/* <div>
