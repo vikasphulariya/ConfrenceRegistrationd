@@ -10,7 +10,7 @@ export default function Overview(params) {
         <div className="flex justify-center mt-10">
           <img
             className=" rounded-md border-[1px] border-black w  md:w-max"
-            src="https://i.ibb.co/qk06GFj/EXCEL-EOUEa2-CCVr.png"
+            src="https://i.ibb.co/qpKcL6M/EXCEL-NTKCNkoqd-P.png"
             alt="Table"
           />
           {/* <div className="flex justify-center container ">
