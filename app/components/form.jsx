@@ -711,7 +711,7 @@ export default function Form() {
 
             <div className="">
               <label className="font-bold text-2xl ">
-                Payment Proof
+                Payment Proof (Image Only)
                 <text className="text-red-700 font-medium">*</text>
                 <br />
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-600 px-6 py-10 w-full md:w-1/2">
@@ -742,7 +742,7 @@ export default function Form() {
                       <p className="pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF up to 10MB
+                      PNG, JPG up to 10MB
                     </p>
                   </div>
                 </div>
