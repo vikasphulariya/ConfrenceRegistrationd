@@ -77,19 +77,19 @@ export default function Form() {
       if (formData.memberType === "Student") {
         console.log("mem", formData.memberType);
 
-        temp = formData.country === "India" ? 7500 : 100;
+        temp = formData.country === "India" ? 8000 : 120;
       } else if (formData.memberType === "Member/Reviewer") {
         console.log("mem", formData.memberType);
-        temp = formData.country === "India" ? 7500 : 100;
+        temp = formData.country === "India" ? 8000 : 120;
       } else if (formData.memberType === "Research Scholar") {
         console.log("mem", formData.memberType);
-        temp = formData.country === "India" ? 7500 : 100;
+        temp = formData.country === "India" ? 8000 : 120;
       } else if (formData.memberType === "Academician") {
         console.log("mem", formData.memberType);
-        temp = formData.country === "India" ? 8000 : 120;
+        temp = formData.country === "India" ?9000: 140;
       } else if (formData.memberType === "Industry") {
         console.log("mem", formData.memberType);
-        temp = formData.country === "India" ? 8000 : 120;
+        temp = formData.country === "India" ?9000: 140;
       } else {
         setAmountPaid("");
       }
