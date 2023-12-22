@@ -7,15 +7,15 @@ export default function Home(params) {
   return (
     <>
       <div className="mx-2 flex flex-col container  rounded-md justify-center w-full">
-        <RegistrationClosed />
-        {/* <Overview />
-        <Form /> */}
+        {/* <RegistrationClosed /> */}
+        <Overview />
+        <Form />
         {/* <QrScreen data={"vikas"}/> */}
-        {/* <BankAccountDetails
+        <BankAccountDetails
           accountHolder="Novel Research Found"
           accountNumber="00158-58000-08501"
           ifscCode="YESB0000015"
-        /> */}
+        />
       </div>
     </>
   );
