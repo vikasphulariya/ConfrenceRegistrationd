@@ -81,7 +81,7 @@ export default function Home(params) {
 
     const docSnapshot = await getDoc(firebaseData);
     const response = await fetch(
-      "http://worldtimeapi.org/api/timezone/Asia/Kolkata"
+      "https://worldtimeapi.org/api/timezone/Asia/Kolkata"
     );
     const dataTime = await response.json();
     console.log(dataTime);
