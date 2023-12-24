@@ -28,7 +28,7 @@ import QrScreen from "./QrScreen";
 //   margin: "0 auto",
 //   borderColor: "red",
 // };
-export default function Form() {
+export default function Form({data,late,lastDate}) {
   const [currentTime, setCurrentTime] = useState(new Date());
   let [loading, setLoading] = useState(false);
 
@@ -56,6 +56,45 @@ export default function Form() {
   const [value, setValue] = useState({ value: "IN", label: "India" });
   const options = useMemo(() => countryList().getData(), []);
   const [amountPaid, setAmountPaid] = useState();
+
+  const [ddata, setfdformData] = useState({
+    imgURL:"",
+    accountHolder: '',
+    accountNumber: '',
+    ifscCode: '',
+    branch: '',
+    upiId: '',
+    paypalId: '',
+    lastDateOfRegistration: '',
+    extendedLastDateOfRegistration: '',
+    indianFee: '',
+    nonIndianFee: '',
+    lateIndianFee: '',
+    lateNonIndianFee: '',
+    researchIndianFee: '',
+    researchNonIndianFee: '',
+    researchLateIndianFee: '',
+    researchLateNonIndianFee: '',
+    industryIndianFee: '',
+    industryNonIndianFee: '',
+    industryLateIndianFee: '',
+    industryLateNonIndianFee: '',
+    academicianIndianFee: '',
+    academicianNonIndianFee: '',
+    academicianLateIndianFee: '',
+    academicianLateNonIndianFee: '',
+    reviewerIndianFee: '',
+    reviewerNonIndianFee: '',
+    reviewerLateIndianFee: '',
+    reviewerLateNonIndianFee: '',
+    delgateIndianFee: '',
+    delgateNonIndianFee: '',
+    delgateLateIndianFee: '',
+    delgateLateNonIndianFee: '',
+    additionalPageFee: '',
+    additionalPageFeeNonIndian: '',
+  });
+
   const changeHandler = (value) => {
     setValue(value);
     console.log(value);
@@ -65,47 +104,95 @@ export default function Form() {
     });
   };
 
+  useEffect(()=>{
+    if(late){
+      alert("Registring after Last Date\nLate Fee will be appicable")
+    }
+  },[])
+
   useEffect(() => {
     let k = formData.country === "India" ? `₹ ` : `$ `;
     let temp = 0;
     let extra = 0;
-    if (formData.areYouA === "Delegate") {
-      {
-        temp = formData.country === "India" ? 3000 : 70;
+    if (!late) {
+      if (formData.areYouA === "Delegate") {
+        {
+          temp = formData.country === "India" ? Number(data.delgateIndianFee) : Number(data.delgateNonIndianFee);
+        }
+      } else {
+        if (formData.memberType === "Student") {
+          console.log("mem", formData.memberType);
+
+          temp = formData.country === "India" ? Number(data.indianFee) : Number(data.nonIndianFee);
+        } else if (formData.memberType === "Member/Reviewer") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.reviewerIndianFee) : Number(data.reviewerNonIndianFee);
+        } else if (formData.memberType === "Research Scholar") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.researchIndianFee) : Number(data.researchNonIndianFee);
+        } else if (formData.memberType === "Academician") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.academicianIndianFee)  : Number(data.academicianNonIndianFee) ;
+        } else if (formData.memberType === "Industry") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.industryIndianFee)  : Number(data.industryNonIndianFee) ;
+        } else {
+          setAmountPaid("");
+        }
+        if (formData.totalPaperPages > 8) {
+          extra =
+            formData.country === "India"
+              ? (formData.totalPaperPages - 8) * Number(data.additionalPageFee)
+              : (formData.totalPaperPages - 8) * Number(data.additionalPageFeeNonIndian);
+        }
+      }
+      if (temp !== 0 || extra !== 0) {
+        setAmountPaid(temp + extra);
+        setFormData({
+          ...formData,
+          amountPaid: k + (temp + extra),
+        });
       }
     } else {
-      if (formData.memberType === "Student") {
-        console.log("mem", formData.memberType);
-
-        temp = formData.country === "India" ? 8000 : 120;
-      } else if (formData.memberType === "Member/Reviewer") {
-        console.log("mem", formData.memberType);
-        temp = formData.country === "India" ? 8000 : 120;
-      } else if (formData.memberType === "Research Scholar") {
-        console.log("mem", formData.memberType);
-        temp = formData.country === "India" ? 8000 : 120;
-      } else if (formData.memberType === "Academician") {
-        console.log("mem", formData.memberType);
-        temp = formData.country === "India" ?9000: 140;
-      } else if (formData.memberType === "Industry") {
-        console.log("mem", formData.memberType);
-        temp = formData.country === "India" ?9000: 140;
+      alert("late charges")
+      if (formData.areYouA === "Delegate") {
+        {
+          temp = formData.country === "India" ? Number(data.delgateLateIndianFee) : Number(data.delgateLateNonIndianFee);
+        }
       } else {
-        setAmountPaid("");
+        if (formData.memberType === "Student") {
+          console.log("mem", formData.memberType);
+
+          temp = formData.country === "India" ? Number(data.lateIndianFee) : Number(data.lateNonIndianFee);
+        } else if (formData.memberType === "Member/Reviewer") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.reviewerLateIndianFee) : Number(data.reviewerLateNonIndianFee);
+        } else if (formData.memberType === "Research Scholar") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.researchLateIndianFee) : Number(data.researchLateNonIndianFee);
+        } else if (formData.memberType === "Academician") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.academicianLateIndianFee)  : Number(data.academicianLateNonIndianFee) ;
+        } else if (formData.memberType === "Industry") {
+          console.log("mem", formData.memberType);
+          temp = formData.country === "India" ? Number(data.industryLateIndianFee)  : Number(data.industryLateNonIndianFee) ;
+        } else {
+          setAmountPaid("");
+        }
+        if (formData.totalPaperPages > 8) {
+          extra =
+            formData.country === "India"
+              ? (formData.totalPaperPages - 8) * Number(data.additionalPageFee)
+              : (formData.totalPaperPages - 8) * Number(data.additionalPageFeeNonIndian);
+        }
       }
-      if (formData.totalPaperPages > 8) {
-        extra =
-          formData.country === "India"
-            ? (formData.totalPaperPages - 8) * 800
-            : (formData.totalPaperPages - 8) * 9;
+      if (temp !== 0 || extra !== 0) {
+        setAmountPaid(temp + extra);
+        setFormData({
+          ...formData,
+          amountPaid: k + (temp + extra),
+        });
       }
-    }
-    if (temp !== 0 || extra !== 0) {
-      setAmountPaid(temp + extra);
-      setFormData({
-        ...formData,
-        amountPaid: k + (temp + extra),
-      });
     }
   }, [
     formData.areYouA,
@@ -186,8 +273,8 @@ export default function Form() {
             State: formData.state,
             Pin: formData.postalCode,
             country: formData.country,
-            date:dateS,
-            time:timeS,
+            date: dateS,
+            time: timeS,
             Catagory: formData.areYouA,
             subCatgory:
               formData.areYouA === "Author" ? formData.memberType : "NA",
@@ -199,7 +286,7 @@ export default function Form() {
             pageNo:
               formData.areYouA === "Author" ? formData.totalPaperPages : "NA",
             Total: formData.amountPaid,
-            Imagel: k,  
+            Imagel: k,
           });
 
           let config = {
@@ -769,15 +856,17 @@ export default function Form() {
                 />
               </label>
             </div>
-            {loading?null:<div className="flex  justify-center">
-              <button
-                disabled={loading}
-                className="bg-blue-200 p-3 my-3 shadow-lg border border-blue-400 self-center rounded-2xl hover:bg-blue-300 hover:p-3.5"
-                type="submit"
-              >
-                Submit
-              </button>
-            </div>}
+            {loading ? null : (
+              <div className="flex  justify-center">
+                <button
+                  disabled={loading}
+                  className="bg-blue-200 p-3 my-3 shadow-lg border border-blue-400 self-center rounded-2xl hover:bg-blue-300 hover:p-3.5"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+            )}
           </form>
         </div>
         {/* <div>
@@ -811,7 +900,7 @@ export default function Form() {
           <div>
             {/* </div> */}
             <div className="flex justify-center flex-row">
-              <QrScreen data={amountPaid} />
+              <QrScreen data={amountPaid} dataFull={data} />
             </div>
             <div className="flex justify-center mt-3">
               <MobileView>
@@ -834,7 +923,7 @@ export default function Form() {
         {formData.country !== "India" ? (
           <div>
             {/* </div> */}
-            <Paypal />
+            <Paypal data={data} dataFull={data}/>
           </div>
         ) : null}
       </div>

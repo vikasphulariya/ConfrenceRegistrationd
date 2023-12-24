@@ -1,7 +1,7 @@
 import React from 'react';
 import './BankAccountDetails.css';
 
-const BankAccountDetails = ({ accountHolder, accountNumber, ifscCode }) => {
+const BankAccountDetails = ({ accountHolder, accountNumber, ifscCode,branch,upi,paypal }) => {
   return (
     <div className="bank-account-details">
       <h2>Bank Account Details</h2>
@@ -16,13 +16,13 @@ const BankAccountDetails = ({ accountHolder, accountNumber, ifscCode }) => {
           <strong>IFSC Code:</strong> {ifscCode}
         </p>
         <p>
-          <strong>Branch:  </strong> Chandigarh
+          <strong>Branch:  </strong> {branch}
         </p>
         <p>
-          <strong>UPI ID:</strong>  9411821385@jio
+          <strong>UPI ID:</strong>  {upi}
         </p>
         <p>
-          <strong>Paypal ID:</strong>  Editor.ijiet@gmail.com
+          <strong>Paypal ID:</strong>  {paypal}
         </p>
       </div>
     </div>

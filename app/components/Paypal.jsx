@@ -1,6 +1,7 @@
+import { data } from "autoprefixer";
 import React from "react";
 
-function Paypal() {
+function Paypal({dataFull}) {
   const textToCopy = "Editor.ijiet@gmail.com";
 
   return (
@@ -12,7 +13,7 @@ function Paypal() {
         </label>
         <label className="text-lg text-justify md:text-sm">
           Our Paypal Address is: <label className="text-lg font-bold">
-          Editor.ijiet@gmail.com
+          {dataFull.paypalId}
             </label>
         </label>
         {/* <div className="bg-[#d4d4d4] pl-3 rounded-md p-2 m-2 flex flex-row justify-between md:flex md:flex-col">

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Table from "./Tabke.png";
-export default function Overview(params) {
+export default function Overview({img}) {
   return (
     <>
       <div className="flex flex-col mb-1  justify-center items-center ">
@@ -10,7 +10,7 @@ export default function Overview(params) {
         <div className="flex  mt-10  max-w-md md:max-w-4xl ">
           <img
             className=" rounded-md border-[1px] border-black "
-            src="https://i.ibb.co/gPjWddB/EXCEL-k1-Cytj96-Lc.jpg"
+            src={img}
             alt="Table"
           />
           {/* <div className="flex justify-center container ">
