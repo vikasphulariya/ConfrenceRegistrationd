@@ -77,10 +77,12 @@ export default function Home(params) {
     return datePart;
   };
   const getData = async () => {
-    const firebaseData = doc(db, "website", "data");
+    try{
 
-    const docSnapshot = await getDoc(firebaseData);
-    const response = await fetch(
+      const firebaseData = doc(db, "website", "data");
+      
+      const docSnapshot = await getDoc(firebaseData);
+      const response = await fetch(
       "https://worldtimeapi.org/api/timezone/Asia/Kolkata"
     );
     const dataTime = await response.json();
@@ -97,10 +99,10 @@ export default function Home(params) {
       const tempActive = activeStatue(
         convertToShortDate(dataTime.datetime),
         data.extendedLastDateOfRegistration
-      );
+        );
 
-      if (tempActive) {
-        setActive(true);
+        if (tempActive) {
+          setActive(true);
         const tempLate = lateStatue(
           convertToShortDate(dataTime.datetime),
           data.lastDateOfRegistration
@@ -114,8 +116,12 @@ export default function Home(params) {
     } else {
       console.log("No such document!");
     }
+  }catch{
+    console.log(e);
+    alert("Data Loading Failed")
+  }
   };
-
+  
   return (
     <>
       {dataLoaded ? (
