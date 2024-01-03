@@ -23,6 +23,7 @@ import Lottie from "react-lottie-player";
 import lottieJson from "./loading.json";
 import Paypal from "./Paypal";
 import QrScreen from "./QrScreen";
+import { stringify } from "postcss";
 // const override: CSSProperties = {
 //   display: "block",
 //   margin: "0 auto",
@@ -278,7 +279,7 @@ export default function Form({ data, late, lastDate }) {
     let config1 = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://api.imgbb.com/1/upload?key=101405e8c4bd3a056e79883b57b8b8f8",
+      url: "https://api.imgbb.com/1/upload?key=feeac1461c086ec60a87d137dd96ee58",
 
       data: data1,
     };
@@ -296,6 +297,10 @@ export default function Form({ data, late, lastDate }) {
           hour: "2-digit",
           minute: "2-digit",
         });
+        alert(timeS)
+        let j=stringify(dateS)
+
+        let kp=stringify(timeS)
         let k = response.data.data.url;
         console.log(JSON.stringify(k));
         if (response.data.success === true) {
@@ -311,8 +316,8 @@ export default function Form({ data, late, lastDate }) {
             State: formData.state,
             Pin: formData.postalCode,
             country: formData.country,
-            date: dateS,
-            time: timeS,
+            date: j,
+            time: kp,
             Catagory: formData.areYouA,
             subCatgory:
               formData.areYouA === "Author" ? formData.memberType : "NA",
