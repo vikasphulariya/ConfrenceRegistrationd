@@ -7,6 +7,8 @@ export default function Overview({img}) {
         <h1 className="text-2xl font-semibold self-center mt-3 text-center md:text-4xl ">
           Registration
         </h1>
+        <br></br>
+        <h2 className="text-xl text-grey-600 font-semibold self-center mt-3 text-center md:text-3xl ">International Conference on Emerging Innovations and Advanced Computing</h2>
         <div className="flex  mt-10  max-w-md md:max-w-4xl ">
           <img
             className=" rounded-md border-[1px] border-black "
